@@ -9,6 +9,7 @@ namespace GreedFluentAssertions
         public int ScoreDiceRolls(List<int> diceRolls)
         {
             var score = 0;
+
             score += ScoreOnes(diceRolls);
             score += ScoreTwos(diceRolls);
             score += ScoreThrees(diceRolls);
@@ -54,17 +55,17 @@ namespace GreedFluentAssertions
             return fives * 50 + setsOfThree * 500;
         }
 
+        private int ScoreSixes(List<int> diceRolls)
+        {
+            return ScoreSetsOfThree(6, diceRolls);
+        }
+
         private int ScoreSetsOfThree(int dieSide, List<int> diceRolls)
         {
             var dieSideCount = diceRolls.Where(dr => dr == dieSide).Count();
             var setsOfThree = dieSideCount / 3;
 
             return setsOfThree * 100 * dieSide;
-        }
-
-        private int ScoreSixes(List<int> diceRolls)
-        {
-            return ScoreSetsOfThree(6, diceRolls);
         }
     }
 }
