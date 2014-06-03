@@ -99,5 +99,58 @@ namespace Tests
             score.Should().Be(800);
         }
 
+        [Test]
+        public void Return600_WhenGivenThreeSixes()
+        {
+            var diceRolls = new List<int> { 6, 6, 6 };
+            var score = _greed.ScoreDiceRolls(diceRolls);
+
+            score.Should().Be(600);
+        }
+
+        [Test]
+        public void Return1150_WhenGivenTheFollowing()
+        {
+            var diceRolls = new List<int> { 1, 1, 1, 5, 1 };
+            var score = _greed.ScoreDiceRolls(diceRolls);
+
+            score.Should().Be(1150);
+        }
+
+        [Test]
+        public void Return0_WhenGivenTheFollowing()
+        {
+            var diceRolls = new List<int> { 2, 3, 4, 6, 2 };
+            var score = _greed.ScoreDiceRolls(diceRolls);
+
+            score.Should().Be(0);
+        }
+
+        [Test]
+        public void Return350_WhenGiven()
+        {
+            var diceRolls = new List<int> { 3, 4, 5, 3, 3 };
+            var score = _greed.ScoreDiceRolls(diceRolls);
+
+            score.Should().Be(350);
+        }
+
+        [Test]
+        public void Return250_WhenGiven()
+        {
+            var diceRolls = new List<int> { 1, 5, 1, 2, 4 };
+            var score = _greed.ScoreDiceRolls(diceRolls);
+
+            score.Should().Be(250);
+        }
+
+        [Test]
+        public void Return600_WhenGivenFiveFives()
+        {
+            var diceRolls = new List<int> { 5, 5, 5, 5, 5 };
+            var score = _greed.ScoreDiceRolls(diceRolls);
+
+            score.Should().Be(600);
+        }
     }
 }

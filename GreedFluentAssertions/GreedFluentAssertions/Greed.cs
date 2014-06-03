@@ -14,6 +14,7 @@ namespace GreedFluentAssertions
             score += ScoreThrees(diceRolls);
             score += ScoreFours(diceRolls);
             score += ScoreFives(diceRolls);
+            score += ScoreSixes(diceRolls);
 
             return score;
         }
@@ -30,31 +31,40 @@ namespace GreedFluentAssertions
 
         private int ScoreTwos(List<int> diceRolls)
         {
-            var twos = diceRolls.Where(dr => dr == 2).Count();
-            var setsOfThree = twos / 3;
-            return setsOfThree * 200;
+            return ScoreSetsOfThree(2, diceRolls);
         }
 
         private int ScoreThrees(List<int> diceRolls)
         {
-            var threes = diceRolls.Where(dr => dr == 3).Count();
-            var setsOfThree = threes / 3;
-
-            return setsOfThree * 300;
+            return ScoreSetsOfThree(3, diceRolls);
         }
   
         private int ScoreFours(List<int> diceRolls)
         {
-            var fours = diceRolls.Where(dr => dr == 4).Count();
-            var setsOfThree = fours / 3;
-
-            return setsOfThree * 400;
+            return ScoreSetsOfThree(4, diceRolls);
         }
   
         private int ScoreFives(List<int> diceRolls)
         {
             var fives = diceRolls.Where(dr => dr == 5).Count();
-            return fives * 50;
+
+            int setsOfThree = fives / 3;
+            fives -= setsOfThree * 3;
+
+            return fives * 50 + setsOfThree * 500;
+        }
+
+        private int ScoreSetsOfThree(int dieSide, List<int> diceRolls)
+        {
+            var dieSideCount = diceRolls.Where(dr => dr == dieSide).Count();
+            var setsOfThree = dieSideCount / 3;
+
+            return setsOfThree * 100 * dieSide;
+        }
+
+        private int ScoreSixes(List<int> diceRolls)
+        {
+            return ScoreSetsOfThree(6, diceRolls);
         }
     }
 }
